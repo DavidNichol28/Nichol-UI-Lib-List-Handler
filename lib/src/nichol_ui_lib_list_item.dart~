@@ -1,0 +1,102 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:modals_and_button_triggers/modals_and_button_triggers.dart';
+
+
+class PersonalListItem extends ConsumerWidget {
+  final String title;
+  final int iteration;
+  final bool isSelected;
+  final VoidCallback onTap; // Made non-nullable
+  final void Function(String)? editOption;
+  final VoidCallback? deleteOption;
+  // Should be 
+  final List<IconButton>? leadingIconsList;
+  final List<IconButton>? trailingIconsList;
+
+  const PersonalListItem({
+    Key? key,
+    required this.title,
+    required this.iteration,
+    this.isSelected = false,
+    required this.onTap,
+    this.editOption,
+    this.deleteOption,
+    this.leadingIconsList,
+    this.trailingIconsList,
+}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    List<Widget> processedTrailingWidgets = trailingIconsList != null ? [...trailingIconsList!] : [];
+    List<Widget> processedLeadingWidgets = leadingIconsList != null ? [...leadingIconsList!] : [];
+
+
+    void deleteOptionHandler() {
+      // Templated pop-up
+      TemplateModalPage modalPage = TemplateModalPage(
+        title: "Delete Tile",
+        subtitle: "Current value: $title",
+        buttonText: "Confirm deletion",
+        onButtonPress: this.deleteOption!,
+      );
+
+      modalThrower(context, modalPage);
+    }
+
+
+
+    void editOptionHandler() {
+
+      // Templated pop-up
+      TemplateModalPage modalPage = TemplateModalPage(
+        title: "Edit Tile",
+        subtitle: "Current value: $title",
+        onSubmit: editOption,
+        buttonText: "Confirm change",
+      );
+      // Throws modal 
+      modalThrower(context, modalPage);
+    }
+
+    if (editOption != null) {
+      processedLeadingWidgets.add( IconButton(
+          icon: Icon(Icons.edit),
+          iconSize: 24.0,
+          color: Colors.green,
+          onPressed: editOptionHandler,
+      ));
+    }
+ 
+    if (deleteOption != null) {
+
+      processedTrailingWidgets.add( IconButton(
+          icon: Icon(Icons.delete),
+          iconSize: 24.0,
+          color: Colors.red,
+          onPressed: deleteOptionHandler,
+      ));
+    }
+
+    Widget trailingIconsWidget = Wrap(
+      spacing: 8, // Space between buttons
+      children: processedTrailingWidgets
+    );
+    
+    Widget leadingIconsWidget = Wrap(
+      spacing: 8, // Space between buttons
+      children: processedLeadingWidgets
+    );
+    
+    return Material(
+      color: Colors.transparent, // Ensure no background issues
+      child: ListTile(
+        title: Text(title),
+        tileColor: isSelected ? Colors.blueGrey : null,
+        onTap: onTap,
+        leading: leadingIconsWidget,
+        trailing: trailingIconsWidget,
+      ),
+    );
+  }
+}

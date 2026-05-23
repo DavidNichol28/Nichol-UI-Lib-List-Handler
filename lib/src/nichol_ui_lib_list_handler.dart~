@@ -1,0 +1,22 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'personal_list_item.dart';
+
+class PersonalListHandler extends StatelessWidget {
+  final List<PersonalListItem> listItems;
+  final int selectedListItem;
+
+  const PersonalListHandler({super.key, required this.listItems, required this.selectedListItem, });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 333,
+      child: ListView.builder(
+        itemCount: listItems.length,
+      itemBuilder: (context, index) {
+        return listItems[index ];
+      },
+  ));
+}
+}
