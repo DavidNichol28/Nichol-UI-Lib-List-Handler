@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nichol_ui_lib_modals_and_button_triggers/nichol_ui_lib_modals_and_button_triggers.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class NicholUILibListItem extends ConsumerWidget {
+class NicholUILibListItem extends StatelessWidget {
   final String title;
   final int iteration;
   final bool isSelected;
@@ -25,7 +24,7 @@ class NicholUILibListItem extends ConsumerWidget {
 });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     List<Widget> processedTrailingWidgets = trailingIconsList != null ? [...trailingIconsList!] : [];
     List<Widget> processedLeadingWidgets = leadingIconsList != null ? [...leadingIconsList!] : [];
 

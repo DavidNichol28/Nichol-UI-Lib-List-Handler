@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'nichol_ui_lib_list_item.dart';
 
 class NicholUILibListHandler extends StatelessWidget {
