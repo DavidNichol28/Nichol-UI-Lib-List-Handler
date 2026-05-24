@@ -1,4 +1,5 @@
 # nichol_ui_lib_list_handler
+![pub package](https://img.shields.io/pub/v/nichol_ui_lib_list_handler.svg)
 
 A Flutter UI package providing a **Riverpod-enabled list system** with reusable list items, modal actions, and customizable icon-driven list controls.
 
